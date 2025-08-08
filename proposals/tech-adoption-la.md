@@ -9,7 +9,7 @@ To: MobilityData | CPSU
 ## Context
 
 - Users expect an aggressive digitalization process in public transportation the same way it has been deployed in other goods and services.
-- The adoption of digital technologies has been unequal in Latin America, where megacities like São Paulo, Mexico City, Buenos Aires and others have developed their
+- The adoption of digital technologies has been unequal in Latin America, where megacities like São Paulo, Mexico City, Buenos Aires and others have developed their own systems, but there are more than 150 cities with sizable population of more than 400,000 people (https://worldpopulationreview.com/cities/continent/latin-america) that can benefit from these systems for their public transportation systems.
 - Difficulties for adoption are not only financial, given the high cost of development of digital technologies.
 
 ## Trigger Questions
