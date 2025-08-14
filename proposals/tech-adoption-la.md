@@ -18,39 +18,41 @@ To:
 - Adoption of digital technologies is highly unequal in Latin America: while megacities (São Paulo, Mexico City, Buenos Aires, etc.) have developed their own systems, there are more than 200 cities with over 400,000 inhabitants (https://worldpopulationreview.com/cities/continent/latin-america) that could benefit from similar systems.
 - Financial constraints (high initial costs, licensing) are an important barrier.
 - Non-financial barriers (governance, limited digital skills, weak incentives for operators) also makes adoption difficult.
-- There is limited comparative, structured evidence focused specifically on small and medium Latin American cities (gotta check this! There are studies for bigger cities, e.g., https://dl.acm.org/doi/abs/10.1145/3366750.3366760).
+- There is limited comparative, structured evidence focused on small and medium Latin American cities (gotta check this! There are studies for bigger cities, e.g., https://dl.acm.org/doi/abs/10.1145/3366750.3366760).
 
 ## Preliminary Objectives
 
-1. Map the current state of ICT adoption (particularly in passenger information) in public transport across a representative sample of Latin American cities with a population of more than 400k.
-2. Identify principal financial and non-financial barriers for adopting ICT components.
-3. Classify cities according to their level of adoption to guide tailored recommendations.
+1. Map the current state of ICT adoption (particularly in passenger information) in public transport across a representative sample of Latin American cities with a population of more than 400k (or similar, the table es [here](latin-america-cities-by-population-2025.csv)).
+2. Identify principal financial and non-financial barriers for adopting ICT elements and developing an information system.
+3. Classify cities according to their level of adoption to guide recommendations.
 4. Produce actionable recommendations for cities, operators, and partners.
 
 ## Trigger Questions
 
 - What are the main financial and organizational roadblocks to ICT adoption in small and medium Latin American cities?
-- Which ICT components (e.g., GTFS data management, telemetry, etc.) deliver the most value?
+- Which ICT components (e.g., GTFS data management, telemetry, etc.) deliver the most value? (Value in terms of what?)
 - How do governance, regulation, technical skills, vendor pressure and other factors influence successful adoption?
 
 ## Scope
 
-- Latin American cities (smaller than 2,000,000 in population) plus a small sample of larger cities for benchmarking.
+- Latin American cities (smaller than 2,000,000 in population) for survey
+- A small sample for interviews
+- A smaller sample of larger cities for benchmarking
 
 ## Methodology (initial)
 
 - Desk research: structured online scan of public documents, open data portals, standards adoption (GTFS, etc.).
-- Survey (online form) to transit agencies.
+- Survey (online form) for transit agencies.
 - Semi-structured virtual interviews.
 - Maturity assessment (using adapted CMMI stages, see below!) to classify cities.
-- Synthesis workshop (virtual) with collaborators to validate findings and refine recommendations.
+- Workshop (virtual) with collaborators to validate findings and refine recommendations.
 
 ## Required Resources
 
 - Research assistants (data collection, survey administration, transcription)
 - Access to partner contact networks (agencies, operators, NGOs, vendors)
-- Lightweight survey and interview management tool
-- Data cleaning and analysis tooling (Python + visualization dashboards)
+- Survey and interview management tool
+- Data cleaning and analysis tooling (Python + visualization dashboards, probably)
 
 ## Stages
 
@@ -64,15 +66,15 @@ To:
 ## Expected Outputs
 
 - Academic article (English)
-- Report for transit agencies and operators (Spanish & Portuguese)
+- Report for transit agencies and operators (Spanish and Portuguese)
 - City info dataset (open, perhaps anonymized)
-- Short briefs / infographics for social media
+- Short briefs (copy) / infographics for social media
 - Webinar (or series) presenting findings and recommendations
 
 ## Anticipated Benefits
 
 - Visibility
-- Actionable, prioritized recommendations
+- Actionable recommendations
 - Expanded regional network (contact list)
 - Baseline for possible future pilots and funding proposals
 
@@ -84,11 +86,11 @@ To:
 - Q3 2026: Synthesis, drafting, validation
 - Q4 2026: Final publications and dissemination
 
-## Funding (to refine)
+## Funding
 
 - University of Costa Rica (faculty time, student assistants)
 - In-kind partner support (contacts, dissemination)
-- Potential external grants (multilateral, foundations) for survey/interview execution
+- Potential external grants (multilateral, foundations) for survey/interview execution (align with IDB in tech infrastructure study in Valparaíso?)
 
 ## Team (initial)
 
@@ -101,4 +103,5 @@ To:
 ## Reference Frameworks / Inspiration
 
 - Capability Maturity Model Integration (CMMI)
+- Architecture Reference for Cooperative and Intelligent Transportation (ARC-IT)
 - Book: "Recoding America: Why Government Is Failing in the Digital Age and How We Can Do Better" (Jennifer Pahlka)
