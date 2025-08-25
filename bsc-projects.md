@@ -1,115 +1,115 @@
-# Proyectos Eléctricos 2025 II
+# Electrical Projects 2025 II
 
-## Objetivo generalísimo
+## Overall Objective
 
-> Diseñar e implementar un prototipo _end-to-end_ de plataforma de información de transporte público basada en GTFS (Schedule y Realtime), con APIs operativas (Databús/Infobús), predicción de llegadas, servidor de pantallas, panel de datos y cliente/servidor MCP, validado con datos y simulación durante el ciclo 2025 II.
+> Design and implement an end-to-end prototype public transport information platform based on GTFS (Schedule and Realtime), with operational APIs (Databús/Infobús), arrival-time prediction, a screens server, a data panel, and an MCP client/server, validated with data and simulation during the 2025 II term.
 
-## Proyectos
+## Projects
 
-### 1. Databús API
+### Project 1 — Databús API
 
-#### Objetivo general
+#### General Objective
 
-Crear una API de nivel de producción para recolectar datos de rastreo y telemetría del transporte público y apoyar tareas de gestión operativa del servicio.
+Build a production-grade API to collect public transport tracking and telemetry data and support operational service management tasks.
 
-#### Objetivos específicos
+#### Specific Objectives
 
-- Actualizar y completar los _endpoints_ (lectura/escritura, validación y paginación).
-- Actualizar y completar la documentación (OpenAPI) con ejemplos de solicitud/respuesta.
-- Definir e implementar una estrategia CRUD para almacenamiento en diferentes tipos de bases de datos.
-- Implementar autenticación por _tokens_ y control de acceso por roles.
-- Gestionar clientes (vehículos, dispositivos, personas, agencias, otros): registro y ciclo de vida.
-- Gestionar permisos, seguridad y desempeño (límites y cuotas básicas).
-- Crear un prototipo de panel de administración.
-- Crear pruebas unitarias y de integración.
+- Update and complete endpoints (read/write, validation, and pagination).
+- Update and complete documentation (OpenAPI) with request/response examples.
+- Define and implement a CRUD strategy for storage across different database types.
+- Implement token-based authentication and role-based access control.
+- Manage clients (vehicles, devices, people, agencies, others): registration and lifecycle.
+- Manage permissions, security, and performance (basic limits and quotas).
+- Create an admin panel prototype.
+- Create unit and integration tests.
 
-#### Tecnologías
+#### Technologies
 
-Repositorio: https://github.com/simovilab/databus
+Repository: https://github.com/simovilab/databus
 
 - Python
 - Django
 - Django REST Framework
 - PostgreSQL, Redis, Apache Jena Fuseki
 - OpenAPI
-- Vue (documentación)
+- Vue (documentation)
 
-### 2. Aplicación de Django GTFS (versión _Schedule_)
+### Project 2 — Django GTFS application (Schedule version)
 
-#### Objetivo general
+#### General Objective
 
-Desarrollar una aplicación de Django que provea modelos, validaciones y utilidades para la gestión de datos GTFS _Schedule_.
+Develop a Django application that provides models, validations, and utilities for managing GTFS Schedule data.
 
-#### Objetivos específicos
+#### Specific Objectives
 
-- Actualizar y completar los modelos de la base de datos con base en GTFS v2.0, con restricciones de integridad referencial
-- Crear un documento de esquema (_schema_) como fuente de verdad, alineado a la especificación oficial y usado para generar modelos y documentación
-- Migrar a llaves primarias compuestas (Django 5.2) según las llaves definidas por GTFS
-- Implementar herramienta de creación de _fixtures_ (comandos de _management_)
-- Crear utilidad de **importación** de GTFS desde ZIP (comando `import_gtfs`)
-- Crear utilidad de **exportación** de GTFS hacia ZIP (comando `export_gtfs`)
-- Módulo de construcción de tabla `stop_times.txt` con el estimador de tiempos de llegada
-- Publicar como extensión de Django en PyPI (actualmente es submódulo de Git), con versionado semántico
-- Crear documentación con ejemplos mínimos de uso
+- Update and complete database models based on GTFS v2.0, with referential integrity constraints.
+- Create a schema document as a single source of truth, aligned to the official spec and used to generate models and documentation.
+- Migrate to composite primary keys (Django 5.2) according to GTFS-defined keys.
+- Implement a fixtures creation tool (management commands).
+- Create an import utility for GTFS from ZIP (command `import_gtfs`).
+- Create an export utility for GTFS to ZIP (command `export_gtfs`).
+- Module to build the `stop_times.txt` table with the arrival-time estimator.
+- Publish as a Django extension on PyPI (currently a Git submodule), with semantic versioning.
+- Create documentation with minimal usage examples.
 
-#### Tecnologías
+#### Technologies
 
-Repositorio: https://github.com/simovilab/django-app-gtfs
+Repository: https://github.com/simovilab/django-app-gtfs
 
 - Python
-- Django 5.2 (llaves primarias compuestas)
-- PostgreSQL/PostGIS (soporte espacial para `shapes.txt` y paradas)
-- Vue (documentación)
+- Django 5.2 (composite primary keys)
+- PostgreSQL/PostGIS (spatial support for `shapes.txt` and stops)
+- Vue (documentation)
 
-### 3. Aplicación de Django GTFS (versión _Realtime_)
+### Project 3 — Django GTFS application (Realtime version)
 
-#### Objetivo general
+#### General Objective
 
-Desarrollar una aplicación de Django con modelos y utilidades para la gestión de datos GTFS _Realtime_ (_Protocol Buffers_) y su integración con _Schedule_.
+Develop a Django application with models and utilities for GTFS Realtime (Protocol Buffers) data management and its integration with Schedule.
 
-#### Objetivos específicos
+#### Specific Objectives
 
-- Actualizar y completar los modelos alineados a la especificación GTFS _Realtime_, con relaciones a entidades _Schedule_ (viajes, paradas)
-- Crear un documento de esquema (_schema_) como fuente de verdad
-- Definir identificadores/llaves coherentes con _Schedule_ y, cuando aplique, compuestos
-- Módulo de construcción de la entidad `TripUpdates` con el estimador de tiempos de llegada
-- Implementar herramienta de creación de _fixtures_
-- Módulos de serialización/decodificación (_Protocol Buffers_) para `VehiclePositions`, `TripUpdates` y `Alerts`
-- Validación de suministros de datos (_feeds_) (_timestamps_, consistencia de identificadores) y utilidades de conversión a JSON
-- Publicar como extensión de Django en PyPI (actualmente es submódulo de Git)
-- Crear documentación con ejemplos de publicación/consumo
+- Update and complete models aligned with the GTFS Realtime specification, with relations to Schedule entities (trips, stops).
+- Create a schema document as a single source of truth.
+- Define identifiers/keys consistent with Schedule and, when applicable, composite.
+- Module to build the `TripUpdates` entity with the arrival-time estimator.
+- Implement a fixtures creation tool.
+- Serialization/decoding modules (Protocol Buffers) for `VehiclePositions`, `TripUpdates`, and `Alerts`.
+- Validation of data feeds (timestamps, identifier consistency) and utilities to convert to JSON.
+- Publish as a Django extension on PyPI (currently a Git submodule).
+- Create documentation with publish/consume examples.
 
-#### Tecnologías
+#### Technologies
 
-Repositorio: https://github.com/simovilab/django-app-gtfs
+Repository: https://github.com/simovilab/django-app-gtfs
 
 - Python
 - Django
-- _Protocol Buffers_
+- Protocol Buffers
 - `gtfs-realtime-bindings` (Python)
-- Vue (documentación)
+- Vue (documentation)
 
-### 4. Creador de modelos de predicción con datos históricos
+### Project 4 — Model builder with historical data
 
-#### Objetivo general
+#### General Objective
 
-Construir un módulo de entrenamiento e inferencia de modelos para estimar tiempos de llegada (ETA) a partir de datos históricos y telemetría, integrado con las aplicaciones GTFS (_Schedule_ y _Realtime_).
+Build a training and inference module for models that estimate arrival times (ETA) from historical data and telemetry, integrated with the GTFS Schedule and Realtime applications.
 
-#### Objetivos específicos
+#### Specific Objectives
 
-- Diseñar la estrategia de recolección y depuración de datos históricos (fuentes, esquema y ETL): deduplicación, manejo de vacíos temporales, muestreo y alineación con entidades _Schedule_.
-- Implementar generación de variables (hora del día, día de semana/feriado, clima opcional, secuencia de paradas, distancia al próximo _stop_, _headway_, congestión aproximada).
-- Implementar modelos base: mediana histórica y regresión polinómica por ruta-tramo-parada, con niveles de respaldo (fallbacks) cuando no haya suficiente historial.
-- Definir protocolo de entrenamiento y evaluación temporal (_rolling_): métricas MAE, RMSE y MAPE y selección automática del mejor modelo por segmento.
-- Diseñar e implementar el registro de modelos (versionado): almacenamiento de parámetros/coeficientes en PostgreSQL y caché en Redis para baja latencia.
-- Desarrollar la función de inferencia `estimate_stop_times()` utilizable desde _Schedule_ y _Realtime_, que debe soportar inferencia por lote (_batch_) y en línea.
-- Programar reentrenamientos periódicos (diario/semanal), _backfill_ del histórico y monitoreo de deriva de error.
-- Integrar con los módulos de los 2 y 3 (claves coherentes, contratos de entrada/salida) y exponer _hooks_ para APIs.
-- Crear pruebas unitarias/integración y un conjunto de datos sintéticos de validación reproducible.
+- Design the strategy for collecting and cleaning historical data (sources, schema, and ETL): deduplication, handling time gaps, sampling, and alignment with Schedule entities.
+- Implement feature generation (time of day, weekday/holiday, stop sequence, distance to next stop, headway, approximate congestion, optional weather).
+- Implement baseline models: historical median and polynomial regression per route–segment–stop, with fallback levels when there is insufficient history.
+- Define a temporal training and evaluation protocol (rolling): MAE, RMSE, and MAPE metrics and automatic selection of the best model per segment.
+- Design and implement the model registry (versioning): store parameters/coefficients in PostgreSQL and cache in Redis for low latency.
+- Develop the inference function `estimate_stop_times()` usable from Schedule and Realtime, supporting batch and online inference.
+- Schedule periodic retraining (daily/weekly), historical backfill, and error drift monitoring.
+- Integrate with Projects 2 and 3 (coherent keys, input/output contracts) and expose hooks for APIs.
+- Create unit/integration tests and a reproducible synthetic validation dataset.
 
-#### Tecnologías
+#### Technologies
 
-Repositorio: https://github.com/simovilab/django-app-gtfs
+Repository: https://github.com/simovilab/django-app-gtfs
 
 - Python
 - Pandas
@@ -119,259 +119,259 @@ Repositorio: https://github.com/simovilab/django-app-gtfs
 - PostgreSQL
 - Redis
 
-### 5. Método de predicción de largo plazo de tiempos de llegada
+### Project 5 — Long-term arrival-time prediction method
 
-(Trabajo doctoral)
+(Doctoral work)
 
-### 6. Simulador de buses en movimiento
+### Project 6 — Bus movement simulator
 
-#### Objetivo general
+#### General Objective
 
-Crear un módulo de simulación determinista y reproducible del movimiento de buses basado en GTFS _Schedule_, para pruebas _end-to-end_ del sistema y sus etapas intermedias.
+Create a deterministic and reproducible simulation module of bus movement based on GTFS Schedule, for end-to-end system tests and intermediate stages.
 
-#### Objetivos específicos
+#### Specific Objectives
 
-- Ingerir un conjunto GTFS y generar escenarios de simulación (rutas, viajes, frecuencias) parametrizables.
-- Simular movimiento de vehículos por _ticks_ (1-5 s) con perfiles de velocidad, tiempos de detención por parada y variabilidad estocástica controlada (semilla, _seed_).
-- Generar y enviar posiciones de vehículo (y opcionalmente _TripUpdates_ / _Alerts_ sintéticos) hacia Databús API para validar canalizaciones de datos(_pipelines_).
-- Implementar perturbaciones simples (retrasos, desvíos, _holding_ para control de _headway_) para pruebas de robustez.
-- Orquestar la simulación con Celery (tareas periódicas y colas por escenario).
-- Proveer configuración de escenarios vía YAML/JSON (número de buses, rutas a simular, horarios, _jitter_, semilla).
-- Registrar eventos y métricas básicas (puntualidad, _on-time performance_, brechas de servicio) para validación.
-- Exponer comandos de _management_: `generate_scenario`, `start_sim`, `stop_sim`, `list_sims`.
-- Crear pruebas unitarias y _fixtures_ sintéticos.
+- Ingest a GTFS bundle and generate parameterizable simulation scenarios (routes, trips, frequencies).
+- Simulate vehicle movement in ticks (1–5 s) with speed profiles, dwell times by stop, and controlled stochastic variability (seed).
+- Generate and send vehicle positions (and optionally synthetic TripUpdates/Alerts) to the Databús API to validate data pipelines.
+- Implement simple perturbations (delays, detours, holding for headway control) for robustness tests.
+- Orchestrate the simulation with Celery (periodic tasks and per-scenario queues).
+- Provide scenario configuration via YAML/JSON (number of buses, routes to simulate, schedules, jitter, seed).
+- Record events and basic metrics (on-time performance, service gaps) for validation.
+- Expose management commands: `generate_scenario`, `start_sim`, `stop_sim`, `list_sims`.
+- Create unit tests and synthetic fixtures.
 
-#### Tecnologías
+#### Technologies
 
-Repositorio: https://github.com/simovilab/simbus
+Repository: https://github.com/simovilab/simbus
 
 - Python
 - Django
 - Celery
-- NumPy (perfiles de velocidad/ruido)
-- YAML/JSON para configuración de escenarios
+- NumPy (speed/noise profiles)
+- YAML/JSON for scenario configuration
 
-#### Entregables
+#### Deliverables
 
-- Contenedor Docker para instalación en servidor
-- Módulo con componentes de escenario, motor de simulación y conectores a Databús.
-- Escenarios de ejemplo (pequeño/mediano) y datos sintéticos.
-- Comandos de _management_ para ejecutar la simulación.
-- Documentación extensiva.
+- Docker container for server installation
+- Module with scenario components, simulation engine, and connectors to Databús.
+- Example scenarios (small/medium) and synthetic data.
+- Management commands to run the simulation.
+- Extensive documentation.
 
-### 7. Infobús API
+### Project 7 — Infobús API
 
-#### Objetivo general
+#### General Objective
 
-Proveer una API pública de información al pasajero basada en GTFS (_Schedule_/_Realtime_) y métricas derivadas, para consumo por sitios web, aplicaciones móviles, pantallas y chatbots.
+Provide a public passenger information API based on GTFS (Schedule/Realtime) and derived metrics, for consumption by websites, mobile apps, screens, and chatbots.
 
-#### Objetivos específicos
+#### Specific Objectives
 
-- Actualizar y completar los _endpoints_ de lectura: paradas, rutas, viajes, llegadas/ETAs por parada y por ruta, estado del servicio, alertas y (si aplica) _headways_/ocupación.
-- Agregar búsqueda/autocompletado de paradas y rutas, y _health checks_ básicos.
-- Actualizar y completar la documentación (OpenAPI) con ejemplos de solicitud/respuesta y códigos de error.
-- Definir e implementar la estrategia de almacenamiento/lectura: PostgreSQL para _Schedule_, Redis para caché/_Realtime_ y Fuseki si se exponen vistas semánticas.
-- Implementar autenticación por _tokens_ (p. ej., JWT) para clientes registrados y definir _rate limits_ para _endpoints_ públicos.
-- Gestionar clientes (sitios, apps, pantallas, chatbots): registro, claves, cuotas y métricas de uso.
-- Gestionar permisos, seguridad y desempeño: CORS, paginación, ETag/HTTP caching, límites de consulta y _rate limiting_.
-- Crear un prototipo de panel de administración (Django admin/panel dedicado) con métricas básicas (tráfico, latencia, errores).
-- Crear pruebas unitarias, de integración y de contrato (validación contra el esquema OpenAPI).
+- Update and complete read endpoints: stops, routes, trips, arrivals/ETAs by stop and by route, service status, alerts, and (if applicable) headways/occupancy.
+- Add search/autocomplete for stops and routes, and basic health checks.
+- Update and complete documentation (OpenAPI) with request/response examples and error codes.
+- Define and implement the storage/reading strategy: PostgreSQL for Schedule, Redis for cache/Realtime, and Fuseki if semantic views are exposed.
+- Implement token-based authentication (e.g., JWT) for registered clients and define rate limits for public endpoints.
+- Manage clients (sites, apps, screens, chatbots): registration, keys, quotas, and usage metrics.
+- Manage permissions, security, and performance: CORS, pagination, ETag/HTTP caching, query limits, and rate limiting.
+- Create an admin panel prototype (Django admin/dedicated panel) with basic metrics (traffic, latency, errors).
+- Create unit, integration, and contract tests (validation against the OpenAPI schema).
 
-#### Tecnologías
+#### Technologies
 
-Repositorio: https://github.com/simovilab/infobus
+Repository: https://github.com/simovilab/infobus
 
 - Python
 - Django
 - Django REST Framework
 - PostgreSQL, Redis, Apache Jena Fuseki
 - OpenAPI
-- Vue (documentación)
+- Vue (documentation)
 
-### 8. Servidor de pantallas
+### Project 8 — Screens server
 
-#### Objetivo general
+#### General Objective
 
-Implementar el servidor que consume datos de Infobús API y gestiona la información enviada en tiempo real a pantallas informativas instaladas en buses y paradas.
+Implement the server that consumes data from the Infobús API and manages real-time information sent to information screens installed on buses and at stops.
 
-#### Objetivos específicos
+#### Specific Objectives
 
-- Plataforma de configuración de pantallas: registro/desregistro de dispositivos, agrupación (por ruta, terminal, zona), variables de entorno y _overrides_ por dispositivo.
-- Conexión permanente con las pantallas mediante WebSockets/SSE con reconexión exponencial y _heartbeats_.
-- Estrategia de persistencia de la conexión y entrega confiable: colas por dispositivo, reintentos, y _backoff_.
-- Plantillas de presentación (_layouts_) para contextos: a bordo (siguiente parada, ETA, correspondencias) y parada (próximas salidas, alertas, ocupación si disponible).
-- Integración con Infobús API: consultas eficientes, uso de caché y actualización diferencial.
-- Programación de contenidos por horario y ubicación (ventanas, _playlists_) y manejo de emergencias/alertas.
-- Seguridad: autenticación de dispositivos (_tokens_/llaves por dispositivo), CORS, firma de mensajes y registro de auditoría.
-- Observabilidad: métricas de entrega/latencia, disponibilidad por dispositivo, bitácoras y panel básico de monitoreo.
-- Pruebas unitarias e integración (incluye _fixtures_ de dispositivos y pantallas simuladas).
+- Screen configuration platform: register/deregister devices, grouping (by route, terminal, zone), environment variables, and per-device overrides.
+- Persistent connection with screens via WebSockets/SSE with exponential backoff and heartbeats.
+- Persistence and reliable delivery strategy: per-device queues, retries, and backoff.
+- Presentation templates (layouts) for contexts: on-board (next stop, ETA, connections) and stop (upcoming departures, alerts, occupancy if available).
+- Integration with Infobús API: efficient queries, cache usage, and differential updates.
+- Content scheduling by time and location (windows, playlists) and handling of emergencies/alerts.
+- Security: device authentication (tokens/keys per device), CORS, message signing, and audit logging.
+- Observability: delivery/latency metrics, availability per device, logs, and a basic monitoring panel.
+- Unit and integration tests (including simulated devices and screens fixtures).
 
-#### Tecnologías
+#### Technologies
 
-Repositorio: https://github.com/simovilab/infobus-screens
+Repository: https://github.com/simovilab/infobus-screens
 
 - Python
 - Django
 - Django Channels (WebSockets, SSE)
-- Redis (canalización y caché)
-- httpx (cliente HTTP hacia Infobús API)
+- Redis (pipeline and cache)
+- httpx (HTTP client to Infobús API)
 - Vue / TypeScript
 - VueUse
 - Tailwind
 - Vite
 
-#### Entregables
+#### Deliverables
 
-- Módulo de servidor con administración de dispositivos, canales de distribución y plantillas.
-- Panel de administración para configuración y monitoreo.
-- Plantillas de pantalla (a bordo y en parada) listas para uso y personalización.
-- Contenedor Docker y guía de despliegue.
+- Server module with device administration, distribution channels, and templates.
+- Admin panel for configuration and monitoring.
+- Screen templates (on-board and stop) ready for use and customization.
+- Docker container and deployment guide.
 
-### 9. Panel de datos de transporte público
+### Project 9 — Public transport data panel
 
-#### Objetivo general
+#### General Objective
 
-Desarrollar un panel de monitoreo y analítica básica (tiempo real y cercano a tiempo real) del transporte público a partir de GTFS _Schedule_, GTFS _Realtime_ e indicadores derivados de Databús/Infobús.
+Develop a monitoring and basic analytics panel (real time and near real time) for public transport based on GTFS Schedule, GTFS Realtime, and indicators derived from Databús/Infobús.
 
-#### Objetivos específicos
+#### Specific Objectives
 
-- Definir y operacionalizar índice claves de desempeño (KPI, _Key Performance Indicators_): puntualidad (_on-time performance_), adherencia de _headway_, retraso promedio por ruta, frescura de _feeds_, latencia de APIs, brechas de servicio y ocupación (si está disponible).
-- Implementar adaptadores de datos: consultas a Infobús API, lectura de GTFS _Schedule_ (PostgreSQL) y agregaciones para KPIs.
-- Exponer KPIs como métricas de Prometheus (_exporter_ en Python).
-- Habilitar la construcción de búsquedas con PromQL.
-- Construir tableros en Grafana: vista general (red), por ruta, por parada y salud de APIs/_feeds_.
-- Configurar alertas (Alertmanager): frescura de _feeds_, errores 5xx/latencia de APIs, caída de vehículos reportando.
-- Documentar definiciones de KPIs, supuestos y limitaciones.
+- Define and operationalize key performance indicators (KPIs): on-time performance, headway adherence, average delay by route, feed freshness, API latency, service gaps, and occupancy (if available).
+- Implement data adapters: queries to Infobús API, reading GTFS Schedule (PostgreSQL), and aggregations for KPIs.
+- Expose KPIs as Prometheus metrics (Python exporter).
+- Enable building queries with PromQL.
+- Build Grafana dashboards: network overview, by route, by stop, and API/feed health.
+- Configure alerts (Alertmanager): feed freshness, API 5xx/latency errors, drop in reporting vehicles.
+- Document KPI definitions, assumptions, and limitations.
 
-#### Tecnologías
+#### Technologies
 
 - Python
-- FastAPI o _exporter_ simple para Prometheus
+- FastAPI or simple Prometheus exporter
 - Prometheus
 - Prometheus Alertmanager
 - Grafana
 - PostgreSQL (Schedule)
-- Redis (caché opcional)
+- Redis (optional cache)
 
-#### Entregables
+#### Deliverables
 
-- Exporter de Prometheus con KPIs operacionales.
-- Tableros de gráficos (_dashboards_) de Grafana (JSON) para red, rutas, paradas y salud del sistema.
-- Reglas de alertas (Alertmanager) y guías de umbrales iniciales.
-- Documento breve de definiciones de KPIs y procedimiento de despliegue.
+- Prometheus exporter with operational KPIs.
+- Grafana dashboards (JSON) for network, routes, stops, and system health.
+- Alert rules (Alertmanager) and initial threshold guides.
+- Brief document with KPI definitions and deployment procedure.
 
-### 10. Servidor y cliente Infobús MCP
+### Project 10 — Infobús MCP server and client
 
-#### Objetivo general
+#### General Objective
 
-Desarrollar un servidor y cliente MCP (_Model Context Protocol_) que exponga capacidades de Infobús como herramientas y recursos descubiertos por asistentes/LLMs, habilitando consultas en lenguaje natural y flujos asistidos.
+Develop an MCP (Model Context Protocol) server and client that exposes Infobús capabilities as tools and resources discoverable by assistants/LLMs, enabling natural-language queries and assisted flows.
 
-#### Objetivos específicos
+#### Specific Objectives
 
-- Implementar un servidor MCP en Python que integre Infobús API como:
-  - **Tools**: `get_eta(stop_id)`, `get_stop(stop_id)`, `search_stops(q)`, `get_route(route_id)`, `service_status()`, `get_alerts()`.
-  - **Resources**: documentos de referencia (GTFS local), endpoints OpenAPI, ejemplos de consultas/respuestas.
-  - **Prompts**: plantillas guiadas para preguntas frecuentes ("¿Cuándo llega el próximo bus en X?", "Rutas desde A hasta B", "Estado del servicio").
-- Definir contratos de entrada/salida con validación (Pydantic) y trazabilidad (logging estructurado).
-- Implementar transporte MCP (JSON-RPC sobre WebSocket/stdio) y autorización básica (lista de orígenes permitidos, _tokens_ de cliente si aplica).
-- Diseñar controles de seguridad: límites de _tokens_, cuotas por cliente, filtrado de herramientas y _rate limiting_.
-- Construir un cliente mínimo (Nuxt/Vue) que permita:
-  - Chat en lenguaje natural con selección transparente de herramientas.
-  - Desambiguación de entradas (por ejemplo, múltiples paradas con el mismo nombre).
-  - Historial y compartir enlace a conversaciones reproducibles.
-- Crear ejemplos de _playbooks_ (secuencias) para tareas comunes (planificar viaje simple, verificar atrasos, generar panel rápido para una parada/ruta).
-- Pruebas unitarias/integración: simulación de llamadas a tools, validación de _schemas_ y pruebas de latencia.
+- Implement an MCP server in Python that integrates the Infobús API as:
+  - Tools: `get_eta(stop_id)`, `get_stop(stop_id)`, `search_stops(q)`, `get_route(route_id)`, `service_status()`, `get_alerts()`.
+  - Resources: reference documents (local GTFS), OpenAPI endpoints, example queries/responses.
+  - Prompts: guided templates for frequently asked questions ("When does the next bus arrive at X?", "Routes from A to B", "Service status").
+- Define input/output contracts with validation (Pydantic) and traceability (structured logging).
+- Implement MCP transport (JSON-RPC over WebSocket/stdio) and basic authorization (allowed origins list, client tokens if applicable).
+- Design security controls: token limits, per-client quotas, tool filtering, and rate limiting.
+- Build a minimal client (Nuxt/Vue) that supports:
+  - Natural-language chat with transparent tool selection.
+  - Input disambiguation (e.g., multiple stops with the same name).
+  - History and shareable links to reproducible conversations.
+- Create example playbooks (sequences) for common tasks (plan a simple trip, check delays, generate a quick panel for a stop/route).
+- Unit/integration tests: simulate tool calls, validate schemas, and test latency.
 
-#### Tecnologías
+#### Technologies
 
-Repositorio: https://github.com/simovilab/infobus-mcp
+Repository: https://github.com/simovilab/infobus-mcp
 
-- Python (servidor)
-- SDK MCP (Python) / especificación MCP
-- WebSocket / stdio (transporte)
-- Pydantic (validación de I/O)
-- httpx (cliente HTTP hacia Infobús API)
-- Nuxt / Vue (cliente)
+- Python (server)
+- MCP SDK (Python) / MCP specification
+- WebSocket / stdio (transport)
+- Pydantic (I/O validation)
+- httpx (HTTP client to Infobús API)
+- Nuxt / Vue (client)
 
-#### Entregables
+#### Deliverables
 
-- Servidor MCP con _tools_/_resources_/_prompts_ documentados.
-- Cliente mínimo (Nuxt/Vue) con chat e invocación de herramientas.
-- Documentos de contexto y ejemplos de _playbooks_.
-- Suite de pruebas y guía de despliegue/local.
+- MCP server with documented tools/resources/prompts.
+- Minimal client (Nuxt/Vue) with chat and tool invocation.
+- Context documents and example playbooks.
+- Test suite and local/deployment guide.
 
-### 11. Editor de señalética
+### Project 11 — Signage editor
 
-#### Objetivo general
+#### General Objective
 
-Crear una herramienta CLI y biblioteca Python para la generación programática de señalética (rótulos) de transporte público -paradas, vehículos, estaciones— con salida en SVG/PDF/PNG, parametrizable por tamaño, tema e idioma, pensada para uso sin GUI y escalable a un servidor de plantillas en el futuro.
+Create a CLI tool and Python library for programmatic generation of public transport signage (labels) — stops, vehicles, stations — outputting SVG/PDF/PNG, parameterizable by size, theme, and language, designed for use without a GUI and scalable to a future templating server.
 
-#### Objetivos específicos
+#### Specific Objectives
 
-- Diseñar un esquema de plantilla (YAML/JSON) para describir rótulos: dimensiones, rejillas, tipografías, paletas, iconografía y campos dinámicos (códigos, rutas, nombres, QR).
-- Implementar un motor de composición basado en SVG + Jinja2 con conversión a PDF/PNG; soporte de fuentes empotradas y perfiles de color básicos.
-- Exponer una CLI con subcomandos: `stop`, `vehicle`, `route`, `station`, `custom`, con opciones: `--format svg|pdf|png`, `--size 1080x1920|mm`, `--dpi`, `--theme`, `--lang`, `--qr-url`.
-- Integrar datos de Infobús/GTFS: si se provee `--stop-id` o `--route-id`, completar textos/códigos desde la API o archivos locales.
-- Generar QR y códigos legibles (alto contraste), márgenes/bleed y marcas de corte para impresión.
-- Validar entradas y archivos de plantilla con Pydantic y una salida de errores amigable (Rich).
-- Integrar el subcomando `signage` al CLI existente `infobus` (Click), sin romper compatibilidad, empaquetar con `pyproject.toml` y publicar en PyPI.
-- Incluir un set mínimo de plantillas: parada vertical/horizontal, vehículo (interior/exterior), estación modular.
-- Pruebas con imágenes doradas (golden) para SVG/PNG y tests de CLI; lint/format automáticos.
-- Documentación breve con ejemplos reproducibles y previsualización local; Dockerfile para renderizado consistente.
+- Design a template schema (YAML/JSON) to describe signage: dimensions, grids, typefaces, palettes, iconography, and dynamic fields (codes, routes, names, QR).
+- Implement a composition engine based on SVG + Jinja2 with conversion to PDF/PNG; support embedded fonts and basic color profiles.
+- Expose a CLI with subcommands: `stop`, `vehicle`, `route`, `station`, `custom`, with options: `--format svg|pdf|png`, `--size 1080x1920|mm`, `--dpi`, `--theme`, `--lang`, `--qr-url`.
+- Integrate data from Infobús/GTFS when provided: if `--stop-id` or `--route-id` is supplied, populate texts/codes from the API or local files.
+- Generate QR and legible codes (high contrast), margins/bleed, and crop marks for printing.
+- Validate inputs and template files with Pydantic; friendly error output (Rich).
+- Integrate the `signage` subcommand into the existing `infobus` CLI (Click) without breaking compatibility; package with `pyproject.toml` and publish on PyPI.
+- Include a minimal set of templates: stop (vertical/horizontal), vehicle (interior/exterior), modular station.
+- Golden-image tests for SVG/PNG and CLI tests; automatic lint/format.
+- Brief documentation with reproducible examples and local preview; Dockerfile for consistent rendering.
 
-#### Tecnologías
+#### Technologies
 
-Repositorio: https://github.com/simovilab/infobus-py
+Repository: https://github.com/simovilab/infobus-py
 
 - Python
-- Click (CLI existente)
-- Jinja2 (plantillas)
-- CairoSVG (render/convertir SVG a/desde PNG/PDF)
-- Pillow (composición raster y postproceso)
-- Pydantic (validación de I/O)
-- PyYAML / JSON (plantillas/configuración)
-- `segno` o `qrcode` (códigos QR)
-- Rich (salida CLI)
-- Inter (tipografía principal) + fuentes complementarias libres (p. ej., Noto Symbols/Emoji)
+- Click (existing CLI)
+- Jinja2 (templates)
+- CairoSVG (render/convert SVG to/from PNG/PDF)
+- Pillow (raster composition and post-processing)
+- Pydantic (I/O validation)
+- PyYAML / JSON (templates/configuration)
+- `segno` or `qrcode` (QR codes)
+- Rich (CLI output)
+- Inter (primary typeface) + complementary free fonts (e.g., Noto Symbols/Emoji)
 
-#### Estructura propuesta
+#### Proposed structure
 
-- `src/infobus/signage/` (módulo y comandos CLI)
-- Subcomando `signage` registrado en el grupo Click del CLI actual (`infobus`)
-- `templates/` (plantillas YAML/JSON + SVG base por tema)
-- `assets/icons/`, `assets/fonts/` (iconografía y tipografías)
-- `examples/` (datos de ejemplo y scripts)
+- `src/infobus/signage/` (module and CLI commands)
+- `signage` subcommand registered in the current Click CLI group (`infobus`)
+- `templates/` (YAML/JSON templates + base SVG per theme)
+- `assets/icons/`, `assets/fonts/` (iconography and typefaces)
+- `examples/` (sample data and scripts)
 - `tests/` (CLI + golden images)
 
-#### Ejemplos de uso
+#### Usage examples
 
 ```sh
-# Rótulo de parada vertical 1080x1920 px, tema por defecto, salida SVG
+# Vertical stop sign 1080x1920 px, default theme, SVG output
 infobus signage stop --stop-id JF83 --routes SJ12 CA23 --size 1080x1920 --format svg
 
-# Rótulo de vehículo interior en PDF A4 en español
+# Vehicle interior sign in A4 PDF in Spanish
 infobus signage vehicle --route SJ12 --direction 1 --format pdf --paper A4 --lang es
 
-# Rótulo personalizado desde plantilla YAML y datos JSON a 300 dpi
+# Custom sign from a YAML template and JSON data at 300 dpi
 infobus signage custom --template templates/station.yaml --data examples/station.json --format png --dpi 300
 ```
 
-#### Entregables
+#### Deliverables
 
-- CLI instalable (`infobus`) y biblioteca de composición.
-- Plantillas base (parada, vehículo, estación) con guía de estilo/temas.
-- Paquete publicable en PyPI y contenedor Docker.
-- Suite de pruebas (_golden_) + CI con lint/format/pruebas.
-- README con Quick start y docs de plantillas/opciones.
-- Paquete de fuentes incluido (Inter) y nota de licencia/uso.
+- Installable CLI (`infobus`) and composition library.
+- Base templates (stop, vehicle, station) with style guide/themes.
+- Package publishable on PyPI and Docker container.
+- Test suite (golden) + CI with lint/format/tests.
+- README with Quick start and template/options docs.
+- Font package included (Inter) with license/usage note.
 
-## Documentación
+## Documentation
 
-La documentación de todos los proyectos estará centralizada en el sitio de SIMOVI (detalles pendientes). Mientras tanto, cada repositorio debe incluir un README sólido y una carpeta `docs/` con lo mínimo útil para empezar rápido.
+Documentation for all projects will be centralized on the SIMOVI site (details pending). Meanwhile, each repository must include a solid README and a `docs/` folder with the minimum useful content to get started quickly.
 
-- Convenciones generales
+- General conventions
 
-  - Idioma: inglés por defecto (añadir resumen corto en español cuando ayude).
-  - Una sola fuente de verdad por API: OpenAPI en el repositorio y (si es posible) generado desde el código.
-  - Versionado semántico y `CHANGELOG.md` por cambios relevantes.
-  - Diagramas con Mermaid (arquitectura, ER, flujos).
+  - Language: English by default (add a short Spanish summary when helpful).
+  - Single source of truth per API: OpenAPI in the repository and (if possible) generated from code.
+  - Semantic versioning and `CHANGELOG.md` for relevant changes.
+  - Diagrams with Mermaid (architecture, ER, flows).
