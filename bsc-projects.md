@@ -300,6 +300,71 @@ Repositorio: https://github.com/simovilab/infobus-mcp
 - Documentos de contexto y ejemplos de _playbooks_.
 - Suite de pruebas y guía de despliegue/local.
 
+### 11. Editor de señalética
+
+#### Objetivo general
+
+Crear una herramienta CLI y biblioteca Python para la generación programática de señalética (rótulos) de transporte público -paradas, vehículos, estaciones— con salida en SVG/PDF/PNG, parametrizable por tamaño, tema e idioma, pensada para uso sin GUI y escalable a un servidor de plantillas en el futuro.
+
+#### Objetivos específicos
+
+- Diseñar un esquema de plantilla (YAML/JSON) para describir rótulos: dimensiones, rejillas, tipografías, paletas, iconografía y campos dinámicos (códigos, rutas, nombres, QR).
+- Implementar un motor de composición basado en SVG + Jinja2 con conversión a PDF/PNG; soporte de fuentes empotradas y perfiles de color básicos.
+- Exponer una CLI con subcomandos: `stop`, `vehicle`, `route`, `station`, `custom`, con opciones: `--format svg|pdf|png`, `--size 1080x1920|mm`, `--dpi`, `--theme`, `--lang`, `--qr-url`.
+- Integrar datos de Infobús/GTFS: si se provee `--stop-id` o `--route-id`, completar textos/códigos desde la API o archivos locales.
+- Generar QR y códigos legibles (alto contraste), márgenes/bleed y marcas de corte para impresión.
+- Validar entradas y archivos de plantilla con Pydantic y una salida de errores amigable (Rich).
+- Integrar el subcomando `signage` al CLI existente `infobus` (Click), sin romper compatibilidad, empaquetar con `pyproject.toml` y publicar en PyPI.
+- Incluir un set mínimo de plantillas: parada vertical/horizontal, vehículo (interior/exterior), estación modular.
+- Pruebas con imágenes doradas (golden) para SVG/PNG y tests de CLI; lint/format automáticos.
+- Documentación breve con ejemplos reproducibles y previsualización local; Dockerfile para renderizado consistente.
+
+#### Tecnologías
+
+Repositorio: https://github.com/simovilab/infobus-py
+
+- Python
+- Click (CLI existente)
+- Jinja2 (plantillas)
+- CairoSVG (render/convertir SVG a/desde PNG/PDF)
+- Pillow (composición raster y postproceso)
+- Pydantic (validación de I/O)
+- PyYAML / JSON (plantillas/configuración)
+- `segno` o `qrcode` (códigos QR)
+- Rich (salida CLI)
+- Inter (tipografía principal) + fuentes complementarias libres (p. ej., Noto Symbols/Emoji)
+
+#### Estructura propuesta
+
+- `src/infobus/signage/` (módulo y comandos CLI)
+- Subcomando `signage` registrado en el grupo Click del CLI actual (`infobus`)
+- `templates/` (plantillas YAML/JSON + SVG base por tema)
+- `assets/icons/`, `assets/fonts/` (iconografía y tipografías)
+- `examples/` (datos de ejemplo y scripts)
+- `tests/` (CLI + golden images)
+
+#### Ejemplos de uso
+
+```sh
+# Rótulo de parada vertical 1080x1920 px, tema por defecto, salida SVG
+infobus signage stop --stop-id JF83 --routes SJ12 CA23 --size 1080x1920 --format svg
+
+# Rótulo de vehículo interior en PDF A4 en español
+infobus signage vehicle --route SJ12 --direction 1 --format pdf --paper A4 --lang es
+
+# Rótulo personalizado desde plantilla YAML y datos JSON a 300 dpi
+infobus signage custom --template templates/station.yaml --data examples/station.json --format png --dpi 300
+```
+
+#### Entregables
+
+- CLI instalable (`infobus`) y biblioteca de composición.
+- Plantillas base (parada, vehículo, estación) con guía de estilo/temas.
+- Paquete publicable en PyPI y contenedor Docker.
+- Suite de pruebas (_golden_) + CI con lint/format/pruebas.
+- README con Quick start y docs de plantillas/opciones.
+- Paquete de fuentes incluido (Inter) y nota de licencia/uso.
+
 ## Documentación
 
 La documentación de todos los proyectos estará centralizada en el sitio de SIMOVI (detalles pendientes). Mientras tanto, cada repositorio debe incluir un README sólido y una carpeta `docs/` con lo mínimo útil para empezar rápido.
@@ -309,43 +374,4 @@ La documentación de todos los proyectos estará centralizada en el sitio de SIM
   - Idioma: inglés por defecto (añadir resumen corto en español cuando ayude).
   - Una sola fuente de verdad por API: OpenAPI en el repositorio y (si es posible) generado desde el código.
   - Versionado semántico y `CHANGELOG.md` por cambios relevantes.
-  - Diagramas con Mermaid (arquitectura, ER, flujos) para _diffs_ limpios.
-
-- Estructura mínima por repositorio
-
-  - `README.md`: qué es (2-4 líneas), diagrama, Quick start (dev), configuración (`.env.example`), cómo correr tests, lint/format, cómo generar docs, troubleshooting (top 5), responsables.
-  - `docs/`
-    - `how-to/` (tareas: importar GTFS, correr simulador, consultar ETAs, etc.)
-    - `reference/` (link a OpenAPI/Redoc, modelos de datos/ER, opciones de config, códigos de error)
-    - `adr/` (Architecture Decision Records breves para decisiones clave)
-  - `.env.example` con variables requeridas y valores seguros de ejemplo.
-
-- Requisitos de documentación para PRs
-
-  - Actualizar README/Quick start y config si cambia el comportamiento.
-  - Regenerar OpenAPI + ejemplos de request/response.
-  - Reflejar cambios de modelos en `docs/reference` + notas de migración.
-  - Añadir entrada en `CHANGELOG.md`.
-  - Documentar nuevos comandos (help + how-to).
-  - Añadir capturas/GIFs cuando aplique (paneles/admin/dashboards).
-
-- Puntos clave por proyecto
-
-  - Databús/Infobús (APIs): auth, paginación/filtros, límites de uso, formato de errores, ejemplos `.http`.
-  - GTFS Schedule/Realtime: mapeo GTFS→Django, comandos import/export, protobufs y reglas de zona horaria.
-  - ETA (histórico): pipeline de datos, _features_, modelos base, métricas (MAE/RMSE/MAPE), reentrenos y deriva.
-  - Simulador: formato de escenarios (YAML/JSON), parámetros del _tick_, semillas y limitaciones conocidas.
-  - Servidor de pantallas: ciclo de vida de dispositivos, conexiones, _layouts_, seguridad y observabilidad.
-  - Panel de datos: diccionario de KPIs con definiciones + PromQL, _scrape jobs_, dashboards y alertas.
-  - MCP: catálogo de tools/resources/prompts, contratos de I/O, seguridad y límites.
-
-- Onboarding para nuevos colaboradores (añadir al inicio del README)
-
-  - Ruta de 60 minutos: prerequisitos, clonar, crear `.env` desde ejemplo, correr tests, abrir docs.
-  - Lista de "good-first-issue" y una tarea inicial sugerida por proyecto.
-
-- Estilo
-
-  - Priorizar ejemplos ejecutables sobre prosa larga, incluir archivos `.http` y datasets de muestra.
-  - Mantener nombres/encabezados consistentes entre repos.
-  - Añadir un bloque de "5 errores comunes y cómo resolverlos" en cada how-to.
+  - Diagramas con Mermaid (arquitectura, ER, flujos).
